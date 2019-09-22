@@ -37,8 +37,40 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
-function decode(expr) {
-    // write your solution here
+function decode(str) {
+    
+    var result = '';
+    var codedLetter = '';
+
+    for (var i = 0; i < str.length; i++) {
+
+        if ( i % 10 === 0 && i !== 0 && str[i-1] !== '*') {
+            result += MORSE_TABLE[codedLetter];
+            codedLetter = '';
+        }
+
+        if (str[i] === '*') {
+            i += 9;
+            result+= ' ';
+            continue;
+        }
+
+        if (str[i] === '1') {
+
+            if (str [i+1] === '1') 
+                codedLetter += '-';
+            else codedLetter += '.';
+
+            i++;
+            continue;
+        }                
+        
+    }
+
+    if (codedLetter !== '')
+        result += MORSE_TABLE[codedLetter];
+
+    return result;
 }
 
 module.exports = {
